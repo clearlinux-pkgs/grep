@@ -1,22 +1,20 @@
-Configure miss: whether the compiler is clang
+Configure miss: 32-bit host C ABI
+Configure miss: CFLocaleCopyPreferredLanguages
+Configure miss: Solaris 11.4 locale system
 Configure miss: compiler option needed when checking for declarations
 Configure miss: crtdefs.h
-Configure miss: mbslen
-Configure miss: pthread_sigmask
-Configure miss: precise C stack overflow detection
-Configure miss: 32-bit host C ABI
-Configure miss: whether the compiler produces multi-arch binaries
-Configure miss: whether mbrtowc stores incomplete characters
-Configure miss: strerror_r with POSIX signature
 Configure miss: fake locale system (OpenBSD)
-Configure miss: Solaris 11.4 locale system
-Configure miss: CFLocaleCopyPreferredLanguages
-Configure miss: libsigsegv
-Configure miss: whether this system supports file names of any length
-Configure miss: whether pthread_rwlock_rdlock prefers a writer to a reader
-Configure miss: obstacks that work with any size object
-Configure miss: working re_compile_pattern
 Configure miss: ioctl with POSIX signature
-Configure miss: working nanosleep
+Configure miss: libsigsegv
+Configure miss: mbslen
+Configure miss: obstacks that work with any size object
+Configure miss: strerror_r with POSIX signature
+Configure miss: whether mbrtowc stores incomplete characters
+Configure miss: whether pthread_rwlock_rdlock prefers a writer to a reader
 Configure miss: whether pthread_sigmask is a macro
-Configure miss: sys/single_threaded.h
+Configure miss: whether the compiler is clang
+Configure miss: whether the compiler produces multi-arch binaries
+Configure miss: whether this system supports file names of any length
+Configure miss: working C stack overflow detection
+Configure miss: working nanosleep
+Configure miss: working re_compile_pattern

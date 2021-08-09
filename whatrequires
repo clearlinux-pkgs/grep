@@ -5,7 +5,6 @@ binutils
 cairo
 filesystem
 firewalld
-fontforge
 glibc
 gmp
 gzip
@@ -13,7 +12,6 @@ ipset
 keepalived
 kronosnet
 libcap
-libgudev
 libmicrohttpd
 libstatgrab
 lttng-tools
