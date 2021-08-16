@@ -6,7 +6,7 @@
 #
 Name     : grep
 Version  : 3.7
-Release  : 44
+Release  : 45
 URL      : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz
 Source0  : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz
 Source1  : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz.sig
@@ -20,6 +20,7 @@ Requires: grep-locales = %{version}-%{release}
 Requires: grep-man = %{version}-%{release}
 BuildRequires : glibc-locale
 BuildRequires : pcre-dev
+Patch1: prime.patch
 
 %description
 This is GNU grep, the "fastest grep in the west" (we hope).  All
@@ -70,13 +71,14 @@ man components for the grep package.
 %prep
 %setup -q -n grep-3.7
 cd %{_builddir}/grep-3.7
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1629056908
+export SOURCE_DATE_EPOCH=1629124795
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -96,7 +98,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1629056908
+export SOURCE_DATE_EPOCH=1629124795
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grep
 cp %{_builddir}/grep-3.7/COPYING %{buildroot}/usr/share/package-licenses/grep/31a3d460bb3c7d98845187c716a30db81c44b615
