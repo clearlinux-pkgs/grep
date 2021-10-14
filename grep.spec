@@ -6,7 +6,7 @@
 #
 Name     : grep
 Version  : 3.7
-Release  : 45
+Release  : 46
 URL      : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz
 Source0  : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz
 Source1  : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz.sig
@@ -14,6 +14,7 @@ Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0 GPL-3.0+
 Requires: grep-bin = %{version}-%{release}
+Requires: grep-filemap = %{version}-%{release}
 Requires: grep-info = %{version}-%{release}
 Requires: grep-license = %{version}-%{release}
 Requires: grep-locales = %{version}-%{release}
@@ -31,9 +32,18 @@ bugs have probably been introduced in this revision.
 Summary: bin components for the grep package.
 Group: Binaries
 Requires: grep-license = %{version}-%{release}
+Requires: grep-filemap = %{version}-%{release}
 
 %description bin
 bin components for the grep package.
+
+
+%package filemap
+Summary: filemap components for the grep package.
+Group: Default
+
+%description filemap
+filemap components for the grep package.
 
 
 %package info
@@ -72,42 +82,61 @@ man components for the grep package.
 %setup -q -n grep-3.7
 cd %{_builddir}/grep-3.7
 %patch1 -p1
+pushd ..
+cp -a grep-3.7 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1629124795
+export SOURCE_DATE_EPOCH=1634255909
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
-export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
-export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
 %configure --disable-static --with-packager="Clear Linux"
 make  %{?_smp_mflags}
 
+unset PKG_CONFIG_PATH
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+%configure --disable-static --with-packager="Clear Linux"
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
+cd ../buildavx2;
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1629124795
+export SOURCE_DATE_EPOCH=1634255909
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grep
 cp %{_builddir}/grep-3.7/COPYING %{buildroot}/usr/share/package-licenses/grep/31a3d460bb3c7d98845187c716a30db81c44b615
+pushd ../buildavx2/
+%make_install_v3
+popd
 %make_install
 %find_lang grep
 ## install_append content
 # Mark patched in test-suite executable
 chmod +x ./tests/kwset-abuse
 ## install_append end
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -117,6 +146,11 @@ chmod +x ./tests/kwset-abuse
 /usr/bin/egrep
 /usr/bin/fgrep
 /usr/bin/grep
+/usr/share/clear/optimized-elf/bin*
+
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-grep
 
 %files info
 %defattr(0644,root,root,0755)
