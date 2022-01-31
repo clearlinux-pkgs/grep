@@ -6,7 +6,7 @@
 #
 Name     : grep
 Version  : 3.7
-Release  : 47
+Release  : 48
 URL      : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz
 Source0  : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz
 Source1  : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz.sig
