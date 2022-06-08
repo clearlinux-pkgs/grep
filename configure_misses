@@ -34,5 +34,3 @@ Configure miss: whether this system supports file names of any length
 Configure miss: whether this system supports file names of any length
 Configure miss: working nanosleep
 Configure miss: working nanosleep
-Configure miss: working re_compile_pattern
-Configure miss: working re_compile_pattern
