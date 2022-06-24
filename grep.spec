@@ -6,7 +6,7 @@
 #
 Name     : grep
 Version  : 3.7
-Release  : 49
+Release  : 50
 URL      : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz
 Source0  : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz
 Source1  : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz.sig
@@ -93,7 +93,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1654713880
+export SOURCE_DATE_EPOCH=1656036913
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -125,7 +125,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1654713880
+export SOURCE_DATE_EPOCH=1656036913
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grep
 cp %{_builddir}/grep-3.7/COPYING %{buildroot}/usr/share/package-licenses/grep/31a3d460bb3c7d98845187c716a30db81c44b615
@@ -138,7 +138,7 @@ popd
 # Mark patched in test-suite executable
 chmod +x ./tests/kwset-abuse
 ## install_append end
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
