@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x7FD9FCCB000BEEEE (meyering@fb.com)
 #
 Name     : grep
-Version  : 3.7
-Release  : 54
-URL      : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz
-Source0  : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz
-Source1  : https://mirrors.kernel.org/gnu/grep/grep-3.7.tar.xz.sig
+Version  : 3.8
+Release  : 55
+URL      : https://mirrors.kernel.org/gnu/grep/grep-3.8.tar.xz
+Source0  : https://mirrors.kernel.org/gnu/grep/grep-3.8.tar.xz
+Source1  : https://mirrors.kernel.org/gnu/grep/grep-3.8.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0 GPL-3.0+
@@ -20,7 +20,7 @@ Requires: grep-license = %{version}-%{release}
 Requires: grep-locales = %{version}-%{release}
 Requires: grep-man = %{version}-%{release}
 BuildRequires : glibc-locale
-BuildRequires : pcre-dev
+BuildRequires : pcre2-dev
 Patch1: prime.patch
 Patch2: v1-0001-Make-zap_nuls-vectorizable.patch
 
@@ -80,12 +80,12 @@ man components for the grep package.
 
 
 %prep
-%setup -q -n grep-3.7
-cd %{_builddir}/grep-3.7
+%setup -q -n grep-3.8
+cd %{_builddir}/grep-3.8
 %patch1 -p1
 %patch2 -p1
 pushd ..
-cp -a grep-3.7 buildavx2
+cp -a grep-3.8 buildavx2
 popd
 
 %build
@@ -93,7 +93,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656118855
+export SOURCE_DATE_EPOCH=1662358162
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -125,10 +125,10 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1656118855
+export SOURCE_DATE_EPOCH=1662358162
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grep
-cp %{_builddir}/grep-3.7/COPYING %{buildroot}/usr/share/package-licenses/grep/31a3d460bb3c7d98845187c716a30db81c44b615
+cp %{_builddir}/grep-%{version}/COPYING %{buildroot}/usr/share/package-licenses/grep/31a3d460bb3c7d98845187c716a30db81c44b615
 pushd ../buildavx2/
 %make_install_v3
 popd
@@ -164,8 +164,6 @@ chmod +x ./tests/kwset-abuse
 
 %files man
 %defattr(0644,root,root,0755)
-/usr/share/man/man1/egrep.1
-/usr/share/man/man1/fgrep.1
 /usr/share/man/man1/grep.1
 
 %files locales -f grep.lang
