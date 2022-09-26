@@ -6,7 +6,7 @@
 #
 Name     : grep
 Version  : 3.8
-Release  : 55
+Release  : 56
 URL      : https://mirrors.kernel.org/gnu/grep/grep-3.8.tar.xz
 Source0  : https://mirrors.kernel.org/gnu/grep/grep-3.8.tar.xz
 Source1  : https://mirrors.kernel.org/gnu/grep/grep-3.8.tar.xz.sig
