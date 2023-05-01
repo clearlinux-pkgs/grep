@@ -1,10 +1,10 @@
 # This file contains recursive sources that require this package
 autoconf
 bashdb
-binutils
 cairo
 filesystem
 firewalld
+ghostscript
 glibc
 gmp
 gzip
@@ -15,7 +15,6 @@ libcap
 libmicrohttpd
 libstatgrab
 llvm12
-llvm13
 lttng-tools
 lttng-ust
 newt
