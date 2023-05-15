@@ -1,7 +1,6 @@
 # This file contains recursive sources that require this package
 autoconf
 bashdb
-cairo
 filesystem
 firewalld
 ghostscript
@@ -20,7 +19,6 @@ lttng-ust
 newt
 octave
 openmpi
-postgis
 python
 python3
 suricata

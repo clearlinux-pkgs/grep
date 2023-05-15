@@ -6,11 +6,11 @@
 # Source0 file verified with key 0x7FD9FCCB000BEEEE (meyering@fb.com)
 #
 Name     : grep
-Version  : 3.8
-Release  : 58
-URL      : https://mirrors.kernel.org/gnu/grep/grep-3.8.tar.xz
-Source0  : https://mirrors.kernel.org/gnu/grep/grep-3.8.tar.xz
-Source1  : https://mirrors.kernel.org/gnu/grep/grep-3.8.tar.xz.sig
+Version  : 3.11
+Release  : 59
+URL      : https://mirrors.kernel.org/gnu/grep/grep-3.11.tar.xz
+Source0  : https://mirrors.kernel.org/gnu/grep/grep-3.11.tar.xz
+Source1  : https://mirrors.kernel.org/gnu/grep/grep-3.11.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0 GPL-3.0+
@@ -26,7 +26,6 @@ BuildRequires : pcre2-dev
 %define __strip /bin/true
 %define debug_package %{nil}
 Patch1: prime.patch
-Patch2: v1-0001-Make-zap_nuls-vectorizable.patch
 
 %description
 This is GNU grep, the "fastest grep in the west" (we hope).  All
@@ -75,12 +74,11 @@ man components for the grep package.
 
 
 %prep
-%setup -q -n grep-3.8
-cd %{_builddir}/grep-3.8
+%setup -q -n grep-3.11
+cd %{_builddir}/grep-3.11
 %patch1 -p1
-%patch2 -p1
 pushd ..
-cp -a grep-3.8 buildavx2
+cp -a grep-3.11 buildavx2
 popd
 
 %build
@@ -88,7 +86,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682977212
+export SOURCE_DATE_EPOCH=1684187370
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -120,7 +118,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1682977212
+export SOURCE_DATE_EPOCH=1684187370
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grep
 cp %{_builddir}/grep-%{version}/COPYING %{buildroot}/usr/share/package-licenses/grep/31a3d460bb3c7d98845187c716a30db81c44b615 || :
