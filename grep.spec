@@ -7,7 +7,7 @@
 #
 Name     : grep
 Version  : 3.11
-Release  : 59
+Release  : 60
 URL      : https://mirrors.kernel.org/gnu/grep/grep-3.11.tar.xz
 Source0  : https://mirrors.kernel.org/gnu/grep/grep-3.11.tar.xz
 Source1  : https://mirrors.kernel.org/gnu/grep/grep-3.11.tar.xz.sig
@@ -86,7 +86,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1684187370
+export SOURCE_DATE_EPOCH=1685544308
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -118,7 +118,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1684187370
+export SOURCE_DATE_EPOCH=1685544308
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/grep
 cp %{_builddir}/grep-%{version}/COPYING %{buildroot}/usr/share/package-licenses/grep/31a3d460bb3c7d98845187c716a30db81c44b615 || :
